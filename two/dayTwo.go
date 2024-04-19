@@ -14,8 +14,13 @@ func PartOne() (sum int, err error) {
 	lines := strings.Split(string(text), "\n")
 
 	for inx, line := range lines {
+		gameId := inx + 1
+		sum += gameId
+		split := func(r rune) bool {
+			return r == ':' || r == ';' || r == ',' || r == ' '
+		}
 		tokens := strings.FieldsFunc(line, split)[2:]
-		sum += inx + 1
+
 		for i := 0; i < len(tokens)-1; i += 2 {
 			var numberOfCubes int
 			if numberOfCubes, err = strconv.Atoi(tokens[i]); err != nil {
@@ -25,27 +30,23 @@ func PartOne() (sum int, err error) {
 
 			if color == "red" {
 				if numberOfCubes > 12 {
-					sum -= inx
+					sum -= gameId
 					break
 				}
 			} else if color == "green" {
 				if numberOfCubes > 13 {
-					sum -= inx
+					sum -= gameId
 					break
 				}
 			} else if color == "blue" {
 				if numberOfCubes > 14 {
-					sum -= inx
+					sum -= gameId
 					break
 				}
 			}
 		}
 	}
 	return sum, nil
-}
-
-func split(r rune) bool {
-	return r == ':' || r == ';' || r == ',' || r == ' '
 }
 
 func PartTwo() {
