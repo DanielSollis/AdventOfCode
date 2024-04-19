@@ -1,4 +1,4 @@
-package main
+package one
 
 import (
 	"bufio"
@@ -8,9 +8,9 @@ import (
 	"unicode"
 )
 
-func partOne(input string) (sum int, err error) {
+func PartOne() (sum int, err error) {
 	var file *os.File
-	if file, err = os.Open(input); err != nil {
+	if file, err = os.Open("one/input.txt"); err != nil {
 		return 0, err
 	}
 
@@ -61,9 +61,9 @@ var digitMap = map[int]map[string]int{
 	},
 }
 
-func partTwo(input string) (sum int, err error) {
+func PartTwo() (sum int, err error) {
 	var text []byte
-	if text, err = os.ReadFile(input); err != nil {
+	if text, err = os.ReadFile("one/input.txt"); err != nil {
 		return 0, err
 	}
 
