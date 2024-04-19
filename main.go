@@ -2,6 +2,7 @@ package main
 
 import (
 	"advent/one"
+	"advent/three"
 	"advent/two"
 	"fmt"
 )
@@ -12,6 +13,8 @@ func main() {
 		one.PartTwo,
 		two.PartOne,
 		two.PartTwo,
+		three.PartOne,
+		three.PartTwo,
 	}
 
 	var err error
