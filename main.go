@@ -7,20 +7,19 @@ import (
 )
 
 func main() {
+	parts := []func() (int, error){
+		one.PartOne,
+		one.PartTwo,
+		two.PartOne,
+		two.PartTwo,
+	}
+
 	var err error
 	var result int
-	if result, err = one.PartOne(); err != nil {
-		fmt.Println(err)
+	for _, part := range parts {
+		if result, err = part(); err != nil {
+			fmt.Println(err)
+		}
+		fmt.Println(result)
 	}
-	fmt.Println(result)
-
-	if result, err = one.PartTwo(); err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(result)
-
-	if result, err = two.PartOne(); err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(result)
 }
