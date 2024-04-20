@@ -53,6 +53,61 @@ func PartOne() (sum int, err error) {
 	return sum, nil
 }
 
+type location struct {
+	i int
+	j int
+}
+
 func PartTwo() (sum int, err error) {
-	return 0, nil
+	text, _ := os.ReadFile("three/input.txt")
+	matrix := strings.Split(string(text), "\n")
+
+	LocationsToNums := map[location]int{}
+	gearLocations := []location{}
+
+	for i := 0; i < len(matrix); i++ {
+		for j := 0; j < len(matrix[i]); j++ {
+			space := rune(matrix[i][j])
+			if space == '*' {
+				gearLocations = append(gearLocations, location{i, j})
+			} else if unicode.IsDigit(space) {
+				foundDigitBytes := []byte{matrix[i][j]}
+				foundLocations := []location{{i, j}}
+				for k := j + 1; k < len(matrix[i]); k++ {
+					if unicode.IsDigit(rune(matrix[i][k])) {
+						foundDigitBytes = append(foundDigitBytes, matrix[i][k])
+						foundLocations = append(foundLocations, location{i, k})
+					} else {
+						j = k
+						break
+					}
+				}
+				foundDigit, _ := strconv.Atoi(string(foundDigitBytes))
+				for _, location := range foundLocations {
+					LocationsToNums[location] = foundDigit
+				}
+			}
+		}
+	}
+
+	for _, gear := range gearLocations {
+		numbers := map[int]struct{}{}
+		for i := gear.i - 1; i < gear.i+2; i++ {
+			for j := gear.j - 1; j < gear.j+2; j++ {
+				if val, ok := LocationsToNums[location{i, j}]; ok {
+					if _, ok := numbers[val]; !ok {
+						numbers[val] = struct{}{}
+					}
+				}
+			}
+		}
+		if len(numbers) > 1 {
+			gearRatio := 1
+			for num := range numbers {
+				gearRatio *= num
+			}
+			sum += gearRatio
+		}
+	}
+	return sum, nil
 }
