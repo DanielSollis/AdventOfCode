@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func PartOne() (sum int, err error) {
+func PartOne() (result int, err error) {
 	var text []byte
 	if text, err = os.ReadFile("two/input.txt"); err != nil {
 		return 0, err
@@ -20,7 +20,7 @@ func PartOne() (sum int, err error) {
 		}
 		tokens := strings.FieldsFunc(line, split)[2:]
 
-		sum += gameId
+		result += gameId
 		for i := 0; i < len(tokens)-1; i += 2 {
 			var numberOfCubes int
 			if numberOfCubes, err = strconv.Atoi(tokens[i]); err != nil {
@@ -30,26 +30,26 @@ func PartOne() (sum int, err error) {
 
 			if color == "red" {
 				if numberOfCubes > 12 {
-					sum -= gameId
+					result -= gameId
 					break
 				}
 			} else if color == "green" {
 				if numberOfCubes > 13 {
-					sum -= gameId
+					result -= gameId
 					break
 				}
 			} else if color == "blue" {
 				if numberOfCubes > 14 {
-					sum -= gameId
+					result -= gameId
 					break
 				}
 			}
 		}
 	}
-	return sum, nil
+	return result, nil
 }
 
-func PartTwo() (sum int, err error) {
+func PartTwo() (result int, err error) {
 	var text []byte
 	if text, err = os.ReadFile("two/input.txt"); err != nil {
 		return 0, err
@@ -84,7 +84,7 @@ func PartTwo() (sum int, err error) {
 				}
 			}
 		}
-		sum += maxRed * maxGreen * maxBlue
+		result += maxRed * maxGreen * maxBlue
 	}
-	return sum, nil
+	return result, nil
 }

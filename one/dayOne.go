@@ -8,7 +8,7 @@ import (
 	"unicode"
 )
 
-func PartOne() (sum int, err error) {
+func PartOne() (result int, err error) {
 	var file *os.File
 	if file, err = os.Open("one/input.txt"); err != nil {
 		return 0, err
@@ -38,9 +38,9 @@ func PartOne() (sum int, err error) {
 		if digit, err = strconv.Atoi(string(digits)); err != nil {
 			return 0, err
 		}
-		sum += digit
+		result += digit
 	}
-	return sum, nil
+	return result, nil
 }
 
 var digitMap = map[int]map[string]int{
@@ -61,7 +61,7 @@ var digitMap = map[int]map[string]int{
 	},
 }
 
-func PartTwo() (sum int, err error) {
+func PartTwo() (result int, err error) {
 	var text []byte
 	if text, err = os.ReadFile("one/input.txt"); err != nil {
 		return 0, err
@@ -90,10 +90,10 @@ func PartTwo() (sum int, err error) {
 		if digit, err = strconv.Atoi(string(digits)); err != nil {
 			panic(err)
 		}
-		sum += digit
+		result += digit
 	}
 
-	return sum, nil
+	return result, nil
 }
 
 func checkForNum(line string, digits []byte, inx int) (_ []byte, found bool) {

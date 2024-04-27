@@ -7,7 +7,7 @@ import (
 	"unicode"
 )
 
-func PartOne() (sum int, err error) {
+func PartOne() (result int, err error) {
 	text, _ := os.ReadFile("three/input.txt")
 	matrix := strings.Split(string(text), "\n")
 
@@ -43,14 +43,14 @@ func PartOne() (sum int, err error) {
 					if number, err = strconv.Atoi(numstring); err != nil {
 						return 0, err
 					}
-					sum += number
+					result += number
 				}
 				numLen = 0
 				symbolFound = false
 			}
 		}
 	}
-	return sum, nil
+	return result, nil
 }
 
 type location struct {
@@ -58,7 +58,7 @@ type location struct {
 	j int
 }
 
-func PartTwo() (sum int, err error) {
+func PartTwo() (result int, err error) {
 	text, _ := os.ReadFile("three/input.txt")
 	matrix := strings.Split(string(text), "\n")
 
@@ -82,7 +82,10 @@ func PartTwo() (sum int, err error) {
 						break
 					}
 				}
-				foundDigit, _ := strconv.Atoi(string(foundDigitBytes))
+				var foundDigit int
+				if foundDigit, err = strconv.Atoi(string(foundDigitBytes)); err != nil {
+					return 0, err
+				}
 				for _, location := range foundLocations {
 					LocationsToNums[location] = foundDigit
 				}
@@ -101,13 +104,13 @@ func PartTwo() (sum int, err error) {
 				}
 			}
 		}
-		if len(numbers) > 1 {
+		if len(numbers) == 2 {
 			gearRatio := 1
 			for num := range numbers {
 				gearRatio *= num
 			}
-			sum += gearRatio
+			result += gearRatio
 		}
 	}
-	return sum, nil
+	return result, nil
 }
