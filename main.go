@@ -17,6 +17,7 @@ func main() {
 		three.PartOne,
 		three.PartTwo,
 		four.PartOne,
+		four.PartTwo,
 	}
 
 	var err error
